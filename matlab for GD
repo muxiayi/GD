@@ -1,0 +1,30 @@
+Q=[1,0;0,10^(-8)];x=[1;1];max_it=10^2;%
+cur_ite_error=x'*x;error_ite=zeros(max_it+1,1);erro_ite(1)=log10(cur_ite_error);%
+cur_func_error=0.5*x'*Q*x;error_func=zeros(max_it+1,1);error_func(1)=log10(cur_func_error);%
+alpha=1;
+ite=1;
+while(ite<=max_it)%
+  x_0=x-[x(1);x(2)*10^(-8)];
+  x=x_0; 
+  error_ite(ite+1)=log10(x'*x);
+  error_func(ite+1)=log10(0.5*x'*Q*x);
+  ite=ite+1;  
+end
+
+figure;%
+plot_length=max_it;%
+plot_vet=1:1:plot_length;%
+plot(plot_vet,error_func(1:plot_length),'b-');%
+xlabel('iteration');%
+ylabel('log error');%
+legend('GD with constant stepsize');%
+title('function Error v.s. iteration');
+
+figure;%
+plot_length=max_it;%
+plot_vet=1:1:plot_length;%
+plot(plot_vet,error_ite(1:plot_length),'b-');%
+xlabel('iteration');%
+ylabel('log error');%
+legend('GD with constant stepsize');%
+title('iterates Error v.s. iteration');
